@@ -1,95 +1,138 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
 
-export default function Home() {
+import React, {useState,useEffect} from 'react';
+import {Typewriter} from 'react-simple-typewriter';
+
+const IMAGES=[
+  'image/img1.jpg',
+  'image/img2.jpg',
+  'image/img3.jpg',
+  'image/img4.jpg',
+  'image/img5.jpg',
+  'image/img6.jpg',
+  'image/img7.jpg'
+];
+let carouselInstance;
+
+function Navbar(){
+  return(
+    <nav className='nav'>
+      <Typewriter
+      words={['Play stupid games', 'Win stupid prizes']}
+      loop={0}
+      cursor
+      cursorStyle='_'
+    />
+    </nav>
+  );
+}
+
+function BigCarousel(){
+  const [bgImage, setBgImage] = useState(IMAGES[0]);
+  const [isVisible, setIsVisible] = useState('');
+
+  function handleChange(item){
+    const activeKey = item.getAttribute('data-activekey');
+    setIsVisible('');
+    setBgImage(IMAGES[activeKey]);
+    setTimeout(() => {setIsVisible('visible');},100);
+  }
+
+  useEffect(() => {
+    const initCarousel = () => {
+      const elem = document.querySelector('.carousel');
+      if (elem && window.M?.Carousel) {
+        carouselInstance = window.M.Carousel.init(elem, { onCycleTo: handleChange });
+      }
+    };
+  
+    if (typeof window !== 'undefined' && window.M) {
+      initCarousel();
+    } else {
+      const interval = setInterval(() => {
+        if (window.M) {
+          initCarousel();
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+  }, []);
+
+  return(
+    <div className={`bg ${isVisible}`}>
+      <img src={bgImage} alt="Very cool background"/>
+    </div>
+  );
+
+}
+
+function LittleCarousel(){
+  const [autoSlide, setAutoSlide] = useState(true);
+  const MouseInCarousel = () => {setAutoSlide(false)};
+  const MouseOutCarousel = () => {setAutoSlide(true)};
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if(autoSlide)
+        carouselInstance.next();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [autoSlide]);
+
+  const littleCarousel = IMAGES.map((image,index) =>
+      <div className='carousel-item' key={index} data-activekey={index}>
+        <img src={image} alt={`Thumb ${index + 1}`} />
+      </div>
+  );
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className='carousel-box' onMouseEnter={MouseInCarousel} onMouseLeave={MouseOutCarousel}>
+      <div className='carousel'>
+        {littleCarousel}
+      </div>
+    </div>
+  );
+}
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+function Content(){
+  const Para = <>
+  <s>Play stupid games, win stupid prizes.</s> &raquo; Compete in thrilling <b>games and challenges</b> and test your skills in <b>coding, puzzles, and more!</b> It's all about excitement and having a blast with friends. Try your best to walk away with all the <b>prizes!</b></>
+
+  return(
+    <div className='glass'>
+      <div className='content'>
+        <h1>Welcome to</h1>
+          <h2><b><Typewriter words={['AYASCHAYA']} loop={0} cursor cursorStyle='_' /></b>
+          <br/>
+          <span id='yr'>2K25</span></h2>
+        <p>{Para}</p>
+        <button>LOGIN</button>
+      </div>
+    </div>
+  );
+}
+
+export default function SmoothLanding(){
+  return(
+    <div>
+      <Navbar/>
+      <div className="container-fluid custom-grid">
+      {/* Top Content */}
+      <div className="content top-content">
+        <div className="p-3 bg-primary text-white rounded">
+        <BigCarousel/>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* Bottom Content */}
+      <div className="content bottom-content">
+        <div className="p-3 bg-secondary text-white rounded">
+        <LittleCarousel/>
+        </div>
+      </div>
+    </div>
+      <Content/>
     </div>
   );
 }
