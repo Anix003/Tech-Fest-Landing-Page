@@ -116,7 +116,7 @@ function Content(){
 export default function SmoothLanding(){
   return(
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <div className="container-fluid custom-grid">
       {/* Top Content */}
       <div className="content top-content">
