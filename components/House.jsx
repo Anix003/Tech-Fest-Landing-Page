@@ -1,17 +1,28 @@
 "use client"
 
+import Image from 'next/image';
 import React, {useState,useEffect} from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 import {Typewriter} from 'react-simple-typewriter';
 
-const IMAGES=[
-  'image/img1.jpg',
-  'image/img2.jpg',
-  'image/img3.jpg',
-  'image/img4.jpg',
-  'image/img5.jpg',
-  'image/img6.jpg',
-  'image/img7.jpg'
+const IMAGES = [
+  'LandingPageImages/Img1.JPG',
+  'LandingPageImages/Img2.JPG',
+  'LandingPageImages/Img3.JPG',
+  'LandingPageImages/Img4.JPG',
+  'LandingPageImages/Img5.JPG',
+  'LandingPageImages/Img6.JPG',
+  'LandingPageImages/Img7.JPG',
+  'LandingPageImages/Img8.JPG',
+  'LandingPageImages/Img9.JPG',
+  'LandingPageImages/Img10.JPG',
+  'LandingPageImages/Img11.JPG',
+  'LandingPageImages/Img12.JPG',
+  'LandingPageImages/Img13.JPG',
+  'LandingPageImages/Img14.JPG',
+  'LandingPageImages/Img15.JPG'
 ];
+
 let carouselInstance;
 
 function Navbar(){
@@ -75,7 +86,7 @@ function LittleCarousel(){
     const intervalId = setInterval(() => {
       if(autoSlide)
         carouselInstance.next();
-    }, 5000);
+    }, 9000);
 
     return () => clearInterval(intervalId);
   }, [autoSlide]);
@@ -97,17 +108,17 @@ function LittleCarousel(){
 
 function Content(){
   const Para = <>
-  <s>Play stupid games, win stupid prizes.</s> &raquo; Compete in thrilling <b>games and challenges</b> and test your skills in <b>coding, puzzles, and more!</b> It's all about excitement and having a blast with friends. Try your best to walk away with all the <b>prizes!</b></>
+  &raquo; Compete in thrilling <b>games and challenges</b> and test your skills in <b>coding, puzzles, and more!</b> It's all about excitement and having a blast with friends. Try your best to walk away with all the <b>prizes!</b></>
 
   return(
     <div className='glass'>
       <div className='content'>
         <h1>Welcome to</h1>
-          <h2><b><Typewriter words={['AYASCHAYA']} loop={0} cursor cursorStyle='_' /></b>
+          <h2><b><Typewriter words={['AYASCHAYA', 'Tech Fest']} loop={0} cursor cursorStyle='_' /></b>
           <br/>
           <span id='yr'>2K25</span></h2>
         <p>{Para}</p>
-        <button>LOGIN</button>
+        <button>Get Started <FaArrowRight/> </button>
       </div>
     </div>
   );

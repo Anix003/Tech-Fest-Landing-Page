@@ -30,7 +30,7 @@ const Developers = () => {
   );
 
   return (
-    <div className='allthedevs'>
+    <div className='allthedevs' id='devs'>
       <h1>Contact the Devs</h1>
       <div className='devcards'>{websitedevs}</div>
     </div>

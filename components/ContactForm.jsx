@@ -101,7 +101,7 @@ const ContactForm = () => {
       <h1 className="title">Contact Us</h1>
       <p className="subtitle">Got questions or comments? Use the form below to get in touch.</p>
       <form className="contact-form" onSubmit={handleSubmit}>
-        <fieldset disabled={isSubmitting} className="space-y-4">
+        <fieldset disabled={isSubmitting} className="   ">
           <div className="form-row">
             <div className="form-column">
               <label htmlFor="name" className="form-label">Name</label>
@@ -162,7 +162,7 @@ const ContactForm = () => {
                 value={description}
                 placeholder="Describe your issue" 
                 rows="4" 
-                className="form-textarea" 
+                className="materialize-textarea" 
                 onChange={(e) => setDescription(e.target.value)} 
                 required
               ></textarea>
